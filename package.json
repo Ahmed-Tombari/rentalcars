@@ -1,0 +1,24 @@
+{
+  "name": "rentalcars",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "15.3.2",
+    "next-themes": "^0.4.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-id-swiper": "^4.0.0",
+    "swiper": "^11.2.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/swiper": "^5.4.3",
+    "tailwindcss": "^4"
+  }
+}

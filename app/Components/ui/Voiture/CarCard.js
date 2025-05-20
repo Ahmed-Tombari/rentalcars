@@ -5,7 +5,7 @@ import { useState } from "react";
 const CarCard = ({ Vdata }) => {
   const [isActive, setIsActive] = useState(false);
   return (
-    <div className="flex flex-col w-full max-w-xs bg-white rounded-lg shadow-[0px_4px_64px_rgba(0,0,0,0.25)] p-5 gap-7">
+    <div className="flex flex-col w-full max-w-xs bg-white rounded-lg shadow-[0px_4px_64px_rgba(0,0,0,0.25)] p-5 gap-7 transition-all duration-300 hover:border-[#c8ff00] hover:shadow-[0px_4px_64px_#c8ff0070]">
       {/* Price Section */}
       <div className="flex justify-between items-center">
         <b className="text-xl font-bold text-gray-900">

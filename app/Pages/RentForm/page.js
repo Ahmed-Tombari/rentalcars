@@ -1,66 +1,254 @@
-// components/RegistrationForm.js
-import Link from 'next/link';
+"use client"
+import React from "react";
+import { useForm, Controller } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { ToastContainer, toast } from "react-toastify";
+import Link from "next/link";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function RentForm() {
+// Define Validation Schema
+const schema = yup.object({
+  name: yup.string().required("Name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  country: yup.string().required("Country is required"),
+  phone: yup.string().required("Phone number is required"),
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  terms: yup.boolean().oneOf([true], "You must accept the terms & conditions"),
+});
+
+export default function RegistrationForm() {
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors, touchedFields, isSubmitSuccessful },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      name: "",
+      email: "",
+      country: "",
+      phone: "",
+      password: "",
+      terms: false,
+    },
+  });
+
+  React.useEffect(() => {
+    if (isSubmitSuccessful) {
+      toast.success("Registration successful!");
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
+
+  const onSubmit = (data) => {
+    console.log("Form Data:", data);
+    // You can send to backend here
+  };
+
+  const onError = (errors) => {
+    const firstErrorKey = Object.keys(errors)[0];
+    if (firstErrorKey) {
+      toast.error(errors[firstErrorKey]?.message || "Please check the form");
+    }
+  };
+
   return (
-    <form action="" className="w-full max-w-2xl mx-auto p-6">
-       <h1 className="text-black text-6xl font-normal pb-6">Rent</h1>
-      <div className="relative mb-6">
-        <InputLabel label="Name" required />
-        <InputWithIcon icon={<UserIcon />} placeholder="Enter Name" type="text" />
-      </div>
-
-      <div className="relative mb-6">
-        <InputLabel label="Email" required />
-        <InputWithIcon icon={<EmailIcon />} placeholder="Enter Email" type="email" />
-      </div>
-
-      <div className="relative mb-6">
-        <InputLabel label="Country" required />
-        <InputWithIcon icon={<CountryIcon />} placeholder="Enter Country" type="text" />
-      </div>
-
-      <div className="relative mb-6">
-        <InputLabel label="Phone Number" required />
-        <InputWithIcon icon={<PhoneIcon />} placeholder="Enter Phone No" type="tel" />
-      </div>
-
-      <div className="relative mb-6">
-        <InputLabel label="Password" required />
-        <InputWithIcon icon={<LockIcon />} placeholder="Enter Password" type="password" />
-      </div>
-
-      <div className="flex items-center mb-6">
-  <div className="relative flex items-center">
-    <input id="checkbox-accept" type="checkbox" value="" className="w-5 h-5 appearance-none border border-gray-300  rounded-md mr-2 hover:border-indigo-500 hover:bg-indigo-100 checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100"/>
-    <svg
-      className="absolute w-4 h-4 text-white pointer-events-none hidden peer-checked:block"
-      fill="currentColor"
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg"
+    <div
+      className="flex justify-center items-center min-h-screen bg-cover bg-center bg-black/40"
+      style={{
+        backgroundImage: "url('/images/Whycar.svg')",
+        backdropFilter: "blur(80px)",
+      }}
     >
-      <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-    </svg>
-  </div>
+      <div className="mx-auto max-w-lg px-6 lg:px-8 py-6">
+        <img
+          src="/images/Triangle.svg"
+          alt="RegisterPage logo"
+          className="mx-auto mb-8 object-cover w-40"
+        />
+        <div className="rounded-2xl bg-white shadow-xl border border-gray-200 lg:w-[500px]">
+          <form
+            onSubmit={handleSubmit(onSubmit, onError)}
+            className="w-full max-w-2xl mx-auto p-7"
+          >
+            <h1 className="text-black text-6xl font-normal pb-6">Rent</h1>
 
-  <label htmlFor="checkbox-accept" className="text-sm font-normal text-gray-600">
-    I accept{' '}
-    <Link href="#" className="text-indigo-600 underline">
-      terms & conditions.
-    </Link>
-  </label>
-</div>
+            {/* Name */}
+            <div className="relative mb-6">
+              <InputLabel label="Name" required />
+              <Controller
+                name="name"
+                control={control}
+                render={({ field }) => (
+                  <InputWithIcon
+                    icon={<UserIcon />}
+                    placeholder="Enter Name"
+                    type="text"
+                    {...field}
+                    error={errors.name && touchedFields.name}
+                  />
+                )}
+              />
+              {errors.name && touchedFields.name && (
+                <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+              )}
+            </div>
 
-      <div className="flex items-center justify-center">
-        <button
-          type="submit"
-          className="w-52 h-12 shadow-sm rounded-full bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 text-white text-base font-semibold leading-7"
-        >
-          Create Account
-        </button>
+            {/* Email */}
+            <div className="relative mb-6">
+              <InputLabel label="Email" required />
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <InputWithIcon
+                    icon={<EmailIcon />}
+                    placeholder="Enter Email"
+                    type="email"
+                    {...field}
+                    error={errors.email && touchedFields.email}
+                  />
+                )}
+              />
+              {errors.email && touchedFields.email && (
+                <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+              )}
+            </div>
+
+            {/* Country */}
+            <div className="relative mb-6">
+              <InputLabel label="Country" required />
+              <Controller
+                name="country"
+                control={control}
+                render={({ field }) => (
+                  <InputWithIcon
+                    icon={<CountryIcon />}
+                    placeholder="Enter Country"
+                    type="text"
+                    {...field}
+                    error={errors.country && touchedFields.country}
+                  />
+                )}
+              />
+              {errors.country && touchedFields.country && (
+                <p className="mt-1 text-sm text-red-500">{errors.country.message}</p>
+              )}
+            </div>
+
+            {/* Phone Number */}
+            <div className="relative mb-6">
+              <InputLabel label="Phone Number" required />
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <InputWithIcon
+                    icon={<PhoneIcon />}
+                    placeholder="Enter Phone No"
+                    type="tel"
+                    {...field}
+                    error={errors.phone && touchedFields.phone}
+                  />
+                )}
+              />
+              {errors.phone && touchedFields.phone && (
+                <p className="mt-1 text-sm text-red-500">{errors.phone.message}</p>
+              )}
+            </div>
+
+            {/* Password */}
+            <div className="relative mb-6">
+              <InputLabel label="Password" required />
+              <Controller
+                name="password"
+                control={control}
+                render={({ field }) => (
+                  <InputWithIcon
+                    icon={<LockIcon />}
+                    placeholder="Enter Password"
+                    type="password"
+                    {...field}
+                    error={errors.password && touchedFields.password}
+                  />
+                )}
+              />
+              {errors.password && touchedFields.password && (
+                <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
+              )}
+            </div>
+
+            {/* Terms Checkbox */}
+            <div className="flex items-center mb-6">
+              <Controller
+                name="terms"
+                control={control}
+                render={({ field }) => (
+                  <>
+                    <div className="relative flex items-center">
+                      <input
+                        id="checkbox-accept"
+                        type="checkbox"
+                        checked={field.value}
+                        onChange={field.onChange}
+                        className={`w-5 h-5 appearance-none border ${
+                          errors.terms ? "border-red-500" : "border-gray-300"
+                        } rounded-md mr-2 hover:border-indigo-500`}
+                      />
+                      {field.value && (
+                        <svg
+                          className="absolute w-4 h-4 text-white pointer-events-none"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                        </svg>
+                      )}
+                    </div>
+                  </>
+                )}
+              />
+              <label htmlFor="checkbox-accept" className="text-sm font-normal text-gray-600">
+                I accept{" "}
+                <Link href="#" className="text-lime-500 underline">
+                  terms & conditions.
+                </Link>
+              </label>
+            </div>
+            {errors.terms && (
+              <p className="mt-1 text-sm text-red-500">{errors.terms.message}</p>
+            )}
+
+            <div className="flex items-center justify-center">
+              <button
+                type="submit"
+                className="w-52 h-12 bg-lime-300 shadow-sm rounded-full text-base font-semibold leading-7 mb-11 transition-all duration-300 hover:bg-lime-500 cursor-pointer"
+              >
+                Confirm
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </form>
 
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+    </div>
   );
 }
 
@@ -82,21 +270,25 @@ function InputLabel({ label, required }) {
   );
 }
 
-function InputWithIcon({ icon, placeholder, type = 'text' }) {
+function InputWithIcon({ icon, placeholder, type = "text", error = false, ...props }) {
   return (
     <div className="relative text-gray-500 focus-within:text-gray-900">
-      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">{icon}</div>
+      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+        {icon}
+      </div>
       <input
         type={type}
-        className="block w-full h-11 pr-5 pl-12 py-2.5 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
+        className={`block w-full h-11 pr-5 pl-12 py-2.5 text-base font-normal shadow-xs text-gray-900 bg-transparent border ${
+          error ? "border-red-500" : "border-gray-300"
+        } rounded-full placeholder-gray-400 focus:outline-none`}
         placeholder={placeholder}
+        {...props}
       />
     </div>
   );
 }
 
-// Icons as inline SVGs
-
+// Icons (same as before)
 function UserIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -151,7 +343,7 @@ function LockIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d="M17 10H8M17 10V10C17.93 10 18.395 10 18.7765 10.1022C19.8117 10.3796 20.6204 11.1883 20.8978 12.2235C21 12.605 21 13.07 21 14C21 14.6667 21 15.3333 21 16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22C13.3333 22 11.6667 22 10 22C7.17157 22 5.75736 22 4.87868 21.1213C4 20.2426 4 18.8284 4 16C4 15.3333 4 14.6667 4 14C4 13.07 4 12.605 4.10222 12.2235C4.37962 11.1883 5.18827 10.3796 6.22354 10.1022C6.60504 10 7.07003 10 8 10V10M17 10V6.5C17 4.01472 14.9853 2 12.5 2C10.0147 2 8 4.01472 8 6.5V10M15 15.5C15 16.8807 13.8807 18 12.5 18C11.1193 18 10 16.8807 10 15.5C10 14.1193 11.1193 13 12.5 13C13.8807 13 15 14.1193 15 15.5Z"
+        d="M17 10H8M17 10V10C17.93 10 18.395 10 18.7765 10.1022C19.8117 10.3796 20.6204 11.1883 20.8978 12.2235C21 12.605 21 13.07 21 14C21 14.6667 21 15.3333 21 16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22C13.3333 22 11.6667 22 10 22C7.17157 22 5.75736 22 4.87868 21.1213C4 20.2426 4 18.8284 4 16C4 15.3333 4 14.6667 4 14C4 13.07 4 12.605 4.10222 12.2235C4.37962 11.1883 5.18827 10.3796 6.22354 10.1022C6.60504 10 7.07003 10 8 10V10M15 15.5C15 16.8807 13.8807 18 12.5 18C11.1193 18 10 16.8807 10 15.5C10 14.1193 11.1193 13 12.5 13C13.8807 13 15 14.1193 15 15.5Z"
         stroke="currentColor"
         strokeWidth="1.5"
       />

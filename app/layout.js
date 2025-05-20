@@ -1,7 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Footer from "./Components/Footer";
-import Navbar from "./Components/Navbar";
+import ClientWrapper from "./ClientWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +25,7 @@ export default function RootLayout({ children }) {
         data-theme="dark"
       >
         <div className="bg-white text-black dark:bg-black dark:text-white">
-          <Navbar />
-          {children}
-          <Footer />
+           <ClientWrapper>{children}</ClientWrapper>
         </div>
       </body>
     </html>

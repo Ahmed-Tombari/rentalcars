@@ -2,6 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer";
 
 // Simple Spinner Component
 function Spinner() {
@@ -37,7 +39,11 @@ export default function ClientWrapper({ children }) {
             ? "opacity-0"
             : "opacity-100 transition-opacity duration-300"
         }
-      ></div>
+      >
+        <Navbar />
+        {children}
+        <Footer />
+      </div>
     </>
   );
 }

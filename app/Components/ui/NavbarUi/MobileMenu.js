@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const router = useRouter();
 
   // Helper to check if the current route matches the link
@@ -12,12 +13,54 @@ export default function MobileMenu() {
     return router.pathname === href;
   };
 
+  // Load saved theme or system preference
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark =
+      savedTheme === "dark" ||
+      (!savedTheme &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+    if (prefersDark) {
+      document.documentElement.classList.add("dark");
+      setIsDarkMode(true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      setIsDarkMode(false);
+    }
+  }, []);
+
+  // Toggle theme
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      if (newMode) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      }
+      return newMode;
+    });
+  };
+
   return (
     <div className="md:hidden">
       <div className="flex items-center space-x-3">
-        <Link href="#" className="w-10 h-10">
-          <img src="/images/moon.svg" alt="Login Icon" className="w-10 h-10" />
-        </Link>
+        <button
+          onClick={toggleTheme}
+          aria-label={
+            isDarkMode ? "Switch to light mode" : "Switch to dark mode"
+          }
+          className="w-10 h-10 cursor-pointer"
+        >
+          {isDarkMode ? (
+            <img src="/images/sun.svg" alt="Sun Icon" className="w-10 h-10" />
+          ) : (
+            <img src="/images/moon.svg" alt="Moon Icon" className="w-10 h-10" />
+          )}
+        </button>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="text-black focus:outline-none dark:text-white"
@@ -66,7 +109,7 @@ export default function MobileMenu() {
 
           {/* Navigation Links */}
           <div className="grid grid-rows-1 gap-3 sm:gap-6 text-center">
-           <Link
+            <Link
               href="/"
               className={`hover:bg-lime-300 ${
                 isActive("/") ? "bg-lime-300" : ""
@@ -91,7 +134,7 @@ export default function MobileMenu() {
               Why Choose Us
             </Link>
             <Link
-              href="/Pages/testimonial"
+              href="/Pages/Testimonial"
               className={`hover:bg-lime-300 ${
                 isActive("/Pages/Testimonial") ? "bg-lime-300" : ""
               }`}
@@ -102,7 +145,10 @@ export default function MobileMenu() {
 
           {/* Auth Buttons */}
           <div className="flex flex-col space-y-2 gap-3">
-            <Link href="/Pages/Register" className="underline text-xs text-center">
+            <Link
+              href="/Pages/Register"
+              className="underline text-xs text-center"
+            >
               Register
             </Link>
             <Link

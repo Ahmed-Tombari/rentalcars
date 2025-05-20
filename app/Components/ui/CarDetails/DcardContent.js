@@ -5,6 +5,11 @@ import Dcard from "./Dcard";
 import { useParams } from "next/navigation";
 
 const DcardContent = () => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost";
+  const API_PORT = process.env.NEXT_PUBLIC_API_PORT || "3000";
+
+  const fullUrl = `${API_URL}:${API_PORT}`;
+
   const { id } = useParams(); // Get dynamic route ID
 
   const [Ddata, setDdata] = useState(null); // Single item, not array
@@ -12,7 +17,7 @@ const DcardContent = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/Api/DcardData")
+    fetch(`${fullUrl}/Api/DcardData`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération des données");
@@ -50,7 +55,7 @@ const DcardContent = () => {
   console.log(" Ddata =======> " + Ddata);
   return (
     <div className="grid grid-cols-1 gap-8 sm:gap-10 md:gap-12 max-w-xl mx-auto lg:max-w-none">
-        <Dcard key={Ddata.id} Ddata={Ddata} />
+      <Dcard key={Ddata.id} Ddata={Ddata} />
     </div>
   );
 };

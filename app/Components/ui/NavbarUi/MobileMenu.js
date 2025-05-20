@@ -64,27 +64,54 @@ export default function MobileMenu() {
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="text-black focus:outline-none dark:text-white"
-          aria-label="Toggle menu"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
+          {isOpen ? (
+            // X (Close) Icon
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            // Hamburger (Menu) Icon
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          )}
         </button>
       </div>
 
       {isOpen && (
-        <div className="absolute top-16 left-0 right-0 bg-white shadow-lg p-5 space-y-4 z-50 grid grid-rows-1 gap-3 dark:text-black">
+        <div
+  className={`
+    slide-transition absolute top-16 left-0 right-0 bg-white shadow-lg p-5 space-y-4 z-50
+    transform transition delay-150 duration-300 ease-in-out
+    ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}
+    dark:bg-gray-100 dark:text-black
+  `}
+>
+        
           {/* Close Button */}
           <button
             onClick={() => setIsOpen(false)}

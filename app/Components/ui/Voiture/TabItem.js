@@ -7,7 +7,7 @@ const TabItem = ({ title, isActive = false, onClick }) => {
     >
       <div
         className={`absolute top-0 text-lg ${
-          isActive ? "font-bold dark:text-[#c8ff00] text-[#c8ff00]" : "font-medium"
+          isActive ? "font-bold dark:text-lime-400 text-lime-400" : "font-medium"
         }`}
         style={{ left: "37.05%" }}
       >
@@ -16,7 +16,7 @@ const TabItem = ({ title, isActive = false, onClick }) => {
       <div
         className={`absolute bottom-0 left-0 w-full border-t ${
           isActive
-            ? "border-4 border-[#c8ff00] dark:border-[#c8ff00]"
+            ? "border-4 border-lime-400 dark:border-lime-400"
             : "border border-gray-400"
         }`}
       ></div>

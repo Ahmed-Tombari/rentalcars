@@ -1,5 +1,6 @@
 // components/CarCard.tsx
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 const CarCard = ({ Vdata }) => {
   const [isActive, setIsActive] = useState(false);
@@ -86,12 +87,15 @@ const CarCard = ({ Vdata }) => {
 
       {/* Buttons */}
       <div className="flex justify-center gap-2 pt-2">
-        <button className="w-[116px] px-4 py-2 bg-[#c8ff00] border border-white rounded text-base font-semibold text-center">
+        <Link
+          href={`/Pages/Vehicles/${Vdata.id}`}
+          className="w-[116px] px-4 py-2 bg-lime-300 border border-white rounded text-base font-semibold text-center cursor-pointer transition-all duration-300 hover:text-white hover:bg-lime-500 hover:border-[#c8ff00] hover:shadow-[0_0_20px_#c8ff0070]"
+        >
           Details
-        </button>
-        <button className="w-[116px] px-4 py-2 bg-[#c8ff00] border border-white rounded text-base font-semibold text-center">
+        </Link>
+        <Link href="/Pages/RentForm" className="w-[116px] px-4 py-2 bg-lime-300 border border-white rounded text-base font-semibold text-center cursor-pointer transition-all duration-300 hover:text-white hover:bg-lime-500 hover:border-[#c8ff00] hover:shadow-[0_0_20px_#c8ff0070]">
           Rent Now
-        </button>
+        </Link>
       </div>
     </div>
   );

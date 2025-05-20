@@ -32,19 +32,19 @@ export default function LoginPage() {
               placeholder="Password"
             />
             <a href="/Pages/ForgotPassword" className="flex justify-end mb-6">
-              <span className="text-[#c8ff00] text-right text-base font-normal leading-6">
+              <span className="text-lime-300 text-right text-base font-normal leading-6">
                 Forgot Password?
               </span>
             </a>
             <button
               type="submit"
-              className="w-full h-12 text-white text-center text-base font-semibold leading-6 rounded-full hover:bg-[#c8ff00] transition-all duration-700 bg-[#c8ff00] shadow-sm mb-11"
+              className="w-full h-12 bg-lime-300 text-white text-center text-base font-semibold leading-6 rounded-full bg-lime-300shadow-sm mb-11 transition-all duration-300 hover:bg-lime-500 hover:border-[#c8ff00] hover:shadow-[0_0_20px_#c8ff0070] cursor-pointer"
             >
               Login
             </button>
             <a href="/Pages/Register" className="flex justify-center text-gray-900 text-base font-medium leading-6">
               Don’t have an account?{' '}
-              <span className="text-[#c8ff00] font-semibold pl-3">Sign Up</span>
+              <span className="text-lime-300 font-semibold pl-3">Sign Up</span>
             </a>
           </form>
         </div>

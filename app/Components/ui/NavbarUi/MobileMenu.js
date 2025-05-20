@@ -68,32 +68,32 @@ export default function MobileMenu() {
           <div className="grid grid-rows-1 gap-3 sm:gap-6 text-center">
            <Link
               href="/"
-              className={`hover:bg-[#E8FF91] ${
-                isActive("/") ? "bg-[#E8FF91]" : ""
+              className={`hover:bg-lime-300 ${
+                isActive("/") ? "bg-lime-300" : ""
               }`}
             >
               Home
             </Link>
             <Link
               href="/Pages/Vehicles"
-              className={`hover:bg-[#E8FF91] ${
-                isActive("/vehicles") ? "bg-[#E8FF91]" : ""
+              className={`hover:bg-lime-300 ${
+                isActive("/vehicles") ? "bg-lime-300" : ""
               }`}
             >
               Vehicles
             </Link>
             <Link
               href="/Pages/WhyChooseUS"
-              className={`hover:bg-[#E8FF91] ${
-                isActive("/Pages/WhyChooseUS") ? "bg-[#E8FF91]" : ""
+              className={`hover:bg-lime-300 ${
+                isActive("/Pages/WhyChooseUS") ? "bg-lime-300" : ""
               }`}
             >
               Why Choose Us
             </Link>
             <Link
               href="/Pages/testimonial"
-              className={`hover:bg-[#E8FF91] ${
-                isActive("/Pages/Testimonial") ? "bg-[#E8FF91]" : ""
+              className={`hover:bg-lime-300 ${
+                isActive("/Pages/Testimonial") ? "bg-lime-300" : ""
               }`}
             >
               Testimonial

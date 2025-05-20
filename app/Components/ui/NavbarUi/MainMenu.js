@@ -39,8 +39,8 @@ const MainMenu = () => {
     <div className="flex items-center lg:gap-9 h-[40px] sm:gap-3 md-gap-4">
       <MenuItems />
       <p>|</p>
-      <a href="/Pages/Register" className="underline hover:text-[#D7FF24]">Registre</a>
-      <a href="/Pages/Login" className="bg-[#D7FF24] px-[10px] py-[10px] rounded-md w-[82px] text-center">
+      <a href="/Pages/Register" className="underline hover:text-lime-300">Registre</a>
+      <a href="/Pages/Login" className="bg-[#D7FF24] px-[10px] py-[10px] rounded-md w-[82px] text-center transition-all duration-300 hover:text-white hover:bg-lime-300 hover:border-[#c8ff00] hover:shadow-[0_0_20px_#c8ff0070]">
         
         Login
       </a>

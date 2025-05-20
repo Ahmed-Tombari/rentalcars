@@ -10,7 +10,7 @@ export default function Hero() {
         <div className="space-x-6">
           <a
             href="#"
-            className="bg-[#D7FF24] w-32 py-2.5 text-center rounded-md inline-block hover:bg-white hover:border-1 hover:border-[#D7FF24] hover:shadow-[#D7FF24]"
+            className="bg-[#D7FF24] w-32 py-2.5 text-center rounded-md inline-block transition-all duration-300 hover:text-white hover:bg-lime-300 hover:border-[#c8ff00] hover:shadow-[0_0_20px_#c8ff0070]"
           >
             Booking Now
           </a>

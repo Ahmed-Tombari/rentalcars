@@ -25,13 +25,13 @@ export default function Footer() {
 
         <div className="flex space-x-8 text-sm font-medium">
           <a
-            className="hover:text-[#D7FF24] transition-colors duration-300"
+            className="hover:text-lime-300 transition-colors duration-300"
             href="#"
           >
             Privacy & Policy
           </a>
           <a
-            className="hover:text-[#D7FF24] transition-colors duration-300"
+            className="hover:text-lime-300 transition-colors duration-300"
             href="#"
           >
             Terms & Condition

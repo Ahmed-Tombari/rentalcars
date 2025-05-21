@@ -4,7 +4,7 @@ import FooterItems from "./ui/FooterUi/FooterItems";
 
 export default function Footer() {
   return (
-    <footer className="w-full max-w-[1440px] px-4 py-10 md:py-12 lg:px-[120px] lg:py-14 xl:py-16 mx-auto">
+    <footer className="w-full max-w-auto px-4 py-10 md:py-12 lg:px-[120px] lg:py-14 xl:py-16 mx-auto">
       {/* Main Footer Content */}
       <div className="flex flex-col gap-8 lg:flex-row lg:justify-between lg:items-center">
         <FooterLogo />

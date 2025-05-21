@@ -10,46 +10,50 @@ import "swiper/css/pagination";
 import TCard from "./TCard";
 
 export default function TestimonialsCarousel() {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost";
+  const API_PORT = process.env.NEXT_PUBLIC_API_PORT || "3000";
+
+  const fullUrl = `${API_URL}:${API_PORT}`;
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
   const [Tdata, setTdata] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-  
-    useEffect(() => {
-      fetch("http://localhost:3000/Api/TcardData")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Erreur lors de la récupération des données");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          setTdata(data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          setError(err.message);
-          setLoading(false);
-        });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-        console.log("console Data =====> " + Tdata);
-    }, []);
-  
-    if (loading)
-      return (
-        <div className="flex flex-col justify-center items-center min-h-screen">
-          <Spinner size="big" />
-          <p className="mt-4 text-lg font-medium text-gray-700">Loading...</p>
-        </div>
-      );
-  
-    if (error) {
-      return <div className="p-6 text-center text-red-500">{error}</div>;
-    }
+  useEffect(() => {
+    fetch(`${fullUrl}/Api/TcardData`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erreur lors de la récupération des données");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setTdata(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
 
- console.log("console Data =====> " + Tdata);
+    console.log("console Data =====> " + Tdata);
+  }, []);
+
+  if (loading)
+    return (
+      <div className="flex flex-col justify-center items-center min-h-screen">
+        <Spinner size="big" />
+        <p className="mt-4 text-lg font-medium text-gray-700">Loading...</p>
+      </div>
+    );
+
+  if (error) {
+    return <div className="p-6 text-center text-red-500">{error}</div>;
+  }
+
+  console.log("console Data =====> " + Tdata);
   return (
     <div className="w-full max-w-7xl mx-auto px-4">
       <Swiper
@@ -75,7 +79,7 @@ export default function TestimonialsCarousel() {
       >
         {Tdata.map((item) => (
           <SwiperSlide key={item.id}>
-            <TCard key={item.id} TCard={item}/>
+            <TCard key={item.id} TCard={item} />
           </SwiperSlide>
         ))}
       </Swiper>

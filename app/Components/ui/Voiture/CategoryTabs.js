@@ -9,7 +9,7 @@ const CategoryTabs = () => {
   const tabs = ["Popular", "Large Car", "Small Car", "Exclusive Car"];
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-start w-full">
+    <div className="flex flex-col md:flex-row items-center justify-center w-full">
       {tabs.map((tab) => (
         <TabItem
           key={tab}

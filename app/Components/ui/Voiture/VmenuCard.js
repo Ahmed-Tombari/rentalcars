@@ -5,12 +5,17 @@ import CarCard from "./CarCard";
 import Link from "next/link";
 
 const VmenuCard = () => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost";
+  const API_PORT = process.env.NEXT_PUBLIC_API_PORT || "3000";
+
+  const fullUrl = `${API_URL}:${API_PORT}`;
+
   const [vdata, setvdata] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/Api/VcardData")
+    fetch(`${fullUrl}/Api/VcardData`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération des données");
@@ -38,15 +43,13 @@ const VmenuCard = () => {
   if (error) {
     return <div className="p-6 text-center text-red-500">{error}</div>;
   }
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full place-items-center">
-      {/* Repeat CarCard as needed or map over data */}
-
-      {vdata.map((item) => (
-        <CarCard key={item.id} Vdata={item} />
-      ))}
-    </div>
-  );
+return (
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full justify-center mx-auto">
+    {vdata.map((item) => (
+      <CarCard key={item.id} Vdata={item} />
+    ))}
+  </div>
+);
 };
 
 export default VmenuCard;

@@ -4,17 +4,14 @@ import Spinner from "../Spinner";
 import Wcard from "./Wcard";
 
 const WmenuCard = () => {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost";
-  const API_PORT = process.env.NEXT_PUBLIC_API_PORT || "3000";
-
-  const fullUrl = `${API_URL}:${API_PORT}`;
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
   
   const [Wdata, setWdata] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${fullUrl}/Api/WcardData`)
+    fetch(`${API_URL}/Api/WcardData`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération des données");

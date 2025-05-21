@@ -10,10 +10,8 @@ import "swiper/css/pagination";
 import TCard from "./TCard";
 
 export default function TestimonialsCarousel() {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost";
-  const API_PORT = process.env.NEXT_PUBLIC_API_PORT || "3000";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
-  const fullUrl = `${API_URL}:${API_PORT}`;
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -22,7 +20,7 @@ export default function TestimonialsCarousel() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${fullUrl}/Api/TcardData`)
+    fetch(`${API_URL}/Api/TcardData`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération des données");

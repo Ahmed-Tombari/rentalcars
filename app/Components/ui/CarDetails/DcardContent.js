@@ -5,10 +5,7 @@ import Dcard from "./Dcard";
 import { useParams } from "next/navigation";
 
 const DcardContent = () => {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost";
-  const API_PORT = process.env.NEXT_PUBLIC_API_PORT || "3000";
-
-  const fullUrl = `${API_URL}:${API_PORT}`;
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
   const { id } = useParams(); // Get dynamic route ID
 
@@ -17,7 +14,7 @@ const DcardContent = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${fullUrl}/Api/DcardData`)
+    fetch(`${API_URL}/Api/DcardData`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération des données");
